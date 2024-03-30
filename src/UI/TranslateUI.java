@@ -114,6 +114,7 @@ public class TranslateUI extends javax.swing.JFrame {
 
                 likeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
                 likeButton.setText("Like");
+                likeButton.setEnabled(false);
                 likeButton.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 likeButtonActionPerformed(evt);
@@ -397,7 +398,7 @@ public class TranslateUI extends javax.swing.JFrame {
         }
 
         // Variables declaration - do not modify
-        private javax.swing.JButton dislikeButton;
+        public javax.swing.JButton dislikeButton;
         public javax.swing.JComboBox<String> inputOption;
         public javax.swing.JTextArea inputText;
         private javax.swing.JLabel jLabel1;
@@ -421,9 +422,8 @@ public class TranslateUI extends javax.swing.JFrame {
         private javax.swing.JScrollPane jScrollPane5;
         private javax.swing.JSeparator jSeparator1;
         private javax.swing.JSeparator jSeparator3;
-        private javax.swing.JButton likeButton;
+        public javax.swing.JButton likeButton;
         public javax.swing.JLabel outputOption;
         public javax.swing.JTextArea outputText;
-        private javax.swing.JList<String> recommendList;
-        // End of variables declaration
+        public javax.swing.JList<String> recommendList;
 }

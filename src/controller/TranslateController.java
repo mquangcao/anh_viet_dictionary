@@ -2,11 +2,16 @@ package controller;
 
 import utils.Debounce;
 
+import utils.Helper;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -15,9 +20,12 @@ import UI.TranslateUI;
 import model.Word;
 import services.Data;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 
 public class TranslateController {
@@ -53,32 +61,49 @@ public class TranslateController {
         });
 
         final Debounce debounce = new Debounce();
-        handleTranslate(tlUI.inputText, tlUI.outputText, debounce, this);
+        handleTranslate(tlUI.inputText, tlUI.outputText, debounce, this, 500);
+
+        // recommend select
+        selectionItemJList(tlUI.recommendList, tlUI.inputText, tlUI.outputText);
 
     }
 
     private void handleTranslate(javax.swing.JTextArea inputText, javax.swing.JTextArea outputText, Debounce debounce,
-            TranslateController tlHDUI) {
+            TranslateController tlHDUI, int ms) {
         inputText.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 debounce.debounce(Void.class, new Runnable() {
                     @Override
                     public void run() {
-
                         String input = inputText.getText();
                         if (input.isEmpty()) {
                             outputText.setText("");
+                            clearRecommendList(tlUI.recommendList);
                         } else {
 
                             if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("English")) {
                                 tlHDUI.trans = tlHDUI.eng_vie;
-                                Word word = trans.get(input);
-                                outputText.setText(word.getMeaning());
+                                if (trans.containsKey(input)) {
+                                    Word word = trans.get(input);
+                                    outputText.setText(word.getMeaning());
+                                    setRecommendList(Helper.recommendWords(input, eng_vie), tlUI.recommendList);
+                                    setActionLike();
+                                } else {
+                                    outputText.setText("");
+                                }
+
                             } else if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("Vietnamese")) {
                                 tlHDUI.trans = tlHDUI.vie_eng;
-                                Word word = trans.get(input);
-                                outputText.setText(word.getMeaning());
+                                if (trans.containsKey(input)) {
+                                    Word word = trans.get(input);
+                                    outputText.setText(word.getMeaning());
+                                    setRecommendList(Helper.recommendWords(input, vie_eng), tlUI.recommendList);
+                                    setActionLike();
+                                } else {
+                                    outputText.setText("");
+                                }
+
                             } else {
                                 JOptionPane.showMessageDialog(tlUI.jPanel3, "Please select language", "Error",
                                         JOptionPane.ERROR_MESSAGE);
@@ -86,7 +111,7 @@ public class TranslateController {
 
                         }
                     }
-                }, 500, TimeUnit.MILLISECONDS);
+                }, ms, TimeUnit.MILLISECONDS);
             }
 
             @Override
@@ -107,6 +132,46 @@ public class TranslateController {
                     JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    private void setRecommendList(ArrayList<String> recommendList, JList<String> list) {
+        DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+        for (String word : recommendList) {
+            defaultListModel.addElement(word);
+        }
+        list.setModel(defaultListModel);
+    }
+
+    private void clearRecommendList(JList<String> list) {
+        list.setModel(new DefaultListModel<>());
+    }
+
+    private void selectionItemJList(JList<String> jList, JTextArea inputText, JTextArea outputText) {
+        jList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    String selectedValue = jList.getSelectedValue();
+                    if (selectedValue != null) {
+                        inputText.setText(selectedValue);
+                        if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("English")) {
+                            Word word = eng_vie.get(selectedValue);
+                            outputText.setText(word.getMeaning());
+                        } else {
+                            Word word = vie_eng.get(selectedValue);
+                            outputText.setText(word.getMeaning());
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+
+    private void setActionLike() {
+        if (!tlUI.outputText.getText().equals("")) {
+            tlUI.likeButton.setEnabled(true);
+        }
     }
 
 }
