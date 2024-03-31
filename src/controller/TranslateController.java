@@ -29,13 +29,22 @@ import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 
 public class TranslateController {
-    public Map<String, Word> eng_vie = null;
-    public Map<String, Word> vie_eng = null;
+    private static TranslateController instance = null;
+
+    public static TranslateController getInstance() {
+        if (instance == null) {
+            instance = new TranslateController();
+        }
+        return instance;
+    }
+
+    public static Map<String, Word> eng_vie = null;
+    public static Map<String, Word> vie_eng = null;
     public Map<String, Word> trans = null;
     public TranslateUI tlUI = null;
 
-    public TranslateController() {
-        tlUI = TranslateUI.getTranslateInstance();
+    private TranslateController() {
+        tlUI = new TranslateUI("Translate");
         tlUI.setVisible(true);
         tlUI.setLocationRelativeTo(null);
         init();
@@ -88,10 +97,10 @@ public class TranslateController {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
                                     setRecommendList(Helper.recommendWords(input, eng_vie), tlUI.recommendList);
-                                    setActionLike();
                                 } else {
                                     outputText.setText("");
                                 }
+                                setActionLike();
 
                             } else if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("Vietnamese")) {
                                 tlHDUI.trans = tlHDUI.vie_eng;
@@ -99,10 +108,10 @@ public class TranslateController {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
                                     setRecommendList(Helper.recommendWords(input, vie_eng), tlUI.recommendList);
-                                    setActionLike();
                                 } else {
                                     outputText.setText("");
                                 }
+                                setActionLike();
 
                             } else {
                                 JOptionPane.showMessageDialog(tlUI.jPanel3, "Please select language", "Error",
@@ -171,6 +180,8 @@ public class TranslateController {
     private void setActionLike() {
         if (!tlUI.outputText.getText().equals("")) {
             tlUI.likeButton.setEnabled(true);
+        } else {
+            tlUI.likeButton.setEnabled(false);
         }
     }
 

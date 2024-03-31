@@ -1,7 +1,8 @@
-import controller.TranslateController;
+import controller.*;
 
 public class App {
     public static void main(String[] args) {
-        new TranslateController();
+        TranslateController.getInstance();
+        DictionaryController.getInstance().setVisible(true);
     }
 }

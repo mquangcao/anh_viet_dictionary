@@ -2,17 +2,8 @@ package UI;
 
 public class TranslateUI extends javax.swing.JFrame {
 
-        private static TranslateUI instance = null;
-
-        public static TranslateUI getTranslateInstance() {
-                if (instance == null) {
-                        instance = new TranslateUI();
-                }
-                return instance;
-        }
-
-        private TranslateUI() {
-                super("Eng_Vie Translate");
+        public TranslateUI(String title) {
+                super(title);
                 initComponents();
         }
 
