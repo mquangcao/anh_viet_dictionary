@@ -1,5 +1,7 @@
 package UI;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author mquangcao
@@ -10,6 +12,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 initComponents();
         }
 
+        @SuppressWarnings("unchecked")
         private void initComponents() {
 
                 jPanel1 = new javax.swing.JPanel();
@@ -30,6 +33,10 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 jPanel4 = new javax.swing.JPanel();
                 jScrollPane3 = new javax.swing.JScrollPane();
                 evtabledic = new javax.swing.JTable();
+                tooleditev = new javax.swing.JPanel();
+                addevButton = new javax.swing.JButton();
+                editevButton = new javax.swing.JButton();
+                deleteevButton = new javax.swing.JButton();
                 vieengdic = new javax.swing.JPanel();
                 engvieheader1 = new javax.swing.JPanel();
                 jSeparator2 = new javax.swing.JSeparator();
@@ -46,8 +53,20 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 jPanel7 = new javax.swing.JPanel();
                 jScrollPane5 = new javax.swing.JScrollPane();
                 vetabledic = new javax.swing.JTable();
+                tooleditve = new javax.swing.JPanel();
+                addveButton = new javax.swing.JButton();
+                editveButton = new javax.swing.JButton();
+                deleteveButton = new javax.swing.JButton();
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                // setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Prevent default close
+                // operation
+
+                jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+                        public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                                jTabbedPane1StateChanged(evt);
+                        }
+                });
 
                 engvieheader.setBackground(java.awt.SystemColor.controlDkShadow);
 
@@ -64,9 +83,8 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                 engvieheaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(engvieheaderLayout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(engvieheaderLayout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engvieheaderLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(evheadertitle,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -118,10 +136,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                 .addGroup(jPanel2Layout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(evworddic)
-                                                                                .addComponent(jScrollPane2,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                221,
-                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(jScrollPane2)
                                                                                 .addComponent(jLabel1,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -153,9 +168,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jScrollPane2,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                240, Short.MAX_VALUE)
+                                                                .addComponent(jScrollPane2)
                                                                 .addContainerGap()));
 
                 jPanel3.setBackground(java.awt.SystemColor.activeCaptionBorder);
@@ -168,8 +181,8 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 jPanel3.setLayout(jPanel3Layout);
                 jPanel3Layout.setHorizontalGroup(
                                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 506,
+                                                                Short.MAX_VALUE));
                 jPanel3Layout.setVerticalGroup(
                                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 36,
@@ -182,6 +195,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                 new String[] {
                                                 "Word", "Meaning"
                                 }) {
+                        @SuppressWarnings("rawtypes")
                         Class[] types = new Class[] {
                                         java.lang.String.class, java.lang.String.class
                         };
@@ -189,6 +203,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                         false, false
                         };
 
+                        @SuppressWarnings("rawtypes")
                         public Class getColumnClass(int columnIndex) {
                                 return types[columnIndex];
                         }
@@ -217,6 +232,58 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 0, Short.MAX_VALUE)
                                                                 .addContainerGap()));
 
+                addevButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                addevButton.setText("Add");
+
+                editevButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                editevButton.setText("Edit");
+
+                deleteevButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                deleteevButton.setText("Delete");
+
+                javax.swing.GroupLayout tooleditevLayout = new javax.swing.GroupLayout(tooleditev);
+                tooleditev.setLayout(tooleditevLayout);
+                tooleditevLayout.setHorizontalGroup(
+                                tooleditevLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(tooleditevLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(tooleditevLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(addevButton,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(editevButton,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(deleteevButton,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                86, Short.MAX_VALUE))
+                                                                .addContainerGap()));
+                tooleditevLayout.setVerticalGroup(
+                                tooleditevLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(tooleditevLayout.createSequentialGroup()
+                                                                .addGap(46, 46, 46)
+                                                                .addComponent(addevButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(59, 59, 59)
+                                                                .addComponent(editevButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                68, Short.MAX_VALUE)
+                                                                .addComponent(deleteevButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(32, 32, 32)));
+
                 javax.swing.GroupLayout engviebodyLayout = new javax.swing.GroupLayout(engviebody);
                 engviebody.setLayout(engviebodyLayout);
                 engviebodyLayout.setHorizontalGroup(
@@ -229,25 +296,31 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addGroup(
-                                                                                engviebodyLayout.createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engviebodyLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jPanel3,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addGroup(engviebodyLayout
+                                                                                                .createSequentialGroup()
                                                                                                 .addComponent(jPanel2,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
-                                                                                                .addComponent(jPanel3,
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                .addComponent(tooleditev,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE))
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                                 .addContainerGap()));
                 engviebodyLayout.setVerticalGroup(
                                 engviebodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(engviebodyLayout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(engviebodyLayout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engviebodyLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(jPanel4,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -259,11 +332,18 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                 .addPreferredGap(
-                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                                .addComponent(jPanel2,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE)))
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                .addGroup(engviebodyLayout
+                                                                                                                .createParallelGroup(
+                                                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                .addComponent(jPanel2,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(tooleditev,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE))))
                                                                 .addContainerGap()));
 
                 javax.swing.GroupLayout engviedicLayout = new javax.swing.GroupLayout(engviedic);
@@ -311,9 +391,8 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                 engvieheader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(engvieheader1Layout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(engvieheader1Layout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engvieheader1Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(vieengheader,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -365,10 +444,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                 .addGroup(jPanel5Layout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(veworddic)
-                                                                                .addComponent(jScrollPane4,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                221,
-                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(jScrollPane4)
                                                                                 .addComponent(jLabel5,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -402,7 +478,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(jScrollPane4,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                240, Short.MAX_VALUE)
+                                                                                246, Short.MAX_VALUE)
                                                                 .addContainerGap()));
 
                 jPanel6.setBackground(java.awt.SystemColor.activeCaptionBorder);
@@ -415,8 +491,8 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 jPanel6.setLayout(jPanel6Layout);
                 jPanel6Layout.setHorizontalGroup(
                                 jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 506,
+                                                                Short.MAX_VALUE));
                 jPanel6Layout.setVerticalGroup(
                                 jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 36,
@@ -429,6 +505,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                 new String[] {
                                                 "Word", "Meaning"
                                 }) {
+                        @SuppressWarnings("rawtypes")
                         Class[] types = new Class[] {
                                         java.lang.String.class, java.lang.String.class
                         };
@@ -436,6 +513,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                         false, false
                         };
 
+                        @SuppressWarnings("rawtypes")
                         public Class getColumnClass(int columnIndex) {
                                 return types[columnIndex];
                         }
@@ -464,6 +542,59 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 0, Short.MAX_VALUE)
                                                                 .addContainerGap()));
 
+                addveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                addveButton.setText("Add");
+
+                editveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                editveButton.setText("Edit");
+
+                deleteveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+                deleteveButton.setText("Delete");
+
+                javax.swing.GroupLayout tooleditveLayout = new javax.swing.GroupLayout(tooleditve);
+                tooleditve.setLayout(tooleditveLayout);
+                tooleditveLayout.setHorizontalGroup(
+                                tooleditveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(tooleditveLayout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(tooleditveLayout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(addveButton,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(editveButton,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addComponent(deleteveButton,
+                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                85, Short.MAX_VALUE))
+                                                                .addContainerGap()));
+                tooleditveLayout.setVerticalGroup(
+                                tooleditveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(tooleditveLayout.createSequentialGroup()
+                                                                .addGap(46, 46, 46)
+                                                                .addComponent(addveButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(59, 59, 59)
+                                                                .addComponent(editveButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addComponent(deleteveButton,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                60,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(32, 32, 32)));
+
                 javax.swing.GroupLayout engviebody1Layout = new javax.swing.GroupLayout(engviebody1);
                 engviebody1.setLayout(engviebody1Layout);
                 engviebody1Layout.setHorizontalGroup(
@@ -476,25 +607,31 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addGroup(
-                                                                                engviebody1Layout.createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engviebody1Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jPanel6,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                Short.MAX_VALUE)
+                                                                                .addGroup(engviebody1Layout
+                                                                                                .createSequentialGroup()
                                                                                                 .addComponent(jPanel5,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
-                                                                                                .addComponent(jPanel6,
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                .addComponent(tooleditve,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE))
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                                 .addContainerGap()));
                 engviebody1Layout.setVerticalGroup(
                                 engviebody1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(engviebody1Layout.createSequentialGroup()
                                                                 .addContainerGap()
-                                                                .addGroup(engviebody1Layout
-                                                                                .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(engviebody1Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(jPanel7,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -506,11 +643,18 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                 .addPreferredGap(
-                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                                .addComponent(jPanel5,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE)))
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                .addGroup(engviebody1Layout
+                                                                                                                .createParallelGroup(
+                                                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                .addComponent(jPanel5,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE)
+                                                                                                                .addComponent(tooleditve,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                                                                Short.MAX_VALUE))))
                                                                 .addContainerGap()));
 
                 javax.swing.GroupLayout vieengdicLayout = new javax.swing.GroupLayout(vieengdic);
@@ -541,7 +685,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                                                 Short.MAX_VALUE)
                                                                 .addContainerGap()));
 
-                jTabbedPane1.addTab("Eng_Vie", vieengdic);
+                jTabbedPane1.addTab("Vie_Eng", vieengdic);
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
@@ -556,6 +700,8 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                                 .addContainerGap()
                                                                 .addComponent(jTabbedPane1)));
+
+                jTabbedPane1.getAccessibleContext().setAccessibleName("Vie_Eng");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -579,7 +725,17 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 // TODO add your handling code here:
         }
 
+        private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {
+                // TODO add your handling code here:
+        }
+
         // Variables declaration - do not modify
+        public javax.swing.JButton addevButton;
+        public javax.swing.JButton addveButton;
+        public javax.swing.JButton deleteevButton;
+        public javax.swing.JButton deleteveButton;
+        public javax.swing.JButton editevButton;
+        public javax.swing.JButton editveButton;
         private javax.swing.JPanel engviebody;
         private javax.swing.JPanel engviebody1;
         private javax.swing.JPanel engviedic;
@@ -612,7 +768,13 @@ public class DictionaryUIForm extends javax.swing.JFrame {
         public javax.swing.JTextArea vemeandic;
         public javax.swing.JTable vetabledic;
         public javax.swing.JTextField veworddic;
+        private javax.swing.JPanel tooleditev;
+        private javax.swing.JPanel tooleditve;
+
         private javax.swing.JPanel vieengdic;
         private javax.swing.JLabel vieengheader;
+
+        // Variables declaration - do not modify
+
         // End of variables declaration
 }

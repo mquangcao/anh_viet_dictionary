@@ -38,8 +38,8 @@ public class TranslateController {
         return instance;
     }
 
-    public static Map<String, Word> eng_vie = null;
-    public static Map<String, Word> vie_eng = null;
+    public Map<String, Word> eng_vie = null;
+    public Map<String, Word> vie_eng = null;
     public Map<String, Word> trans = null;
     public TranslateUI tlUI = null;
 
@@ -74,6 +74,12 @@ public class TranslateController {
 
         // recommend select
         selectionItemJList(tlUI.recommendList, tlUI.inputText, tlUI.outputText);
+
+        tlUI.DictionaryMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DictionaryMenuItemActionPerformed(evt);
+            }
+        });
 
     }
 
@@ -183,6 +189,10 @@ public class TranslateController {
         } else {
             tlUI.likeButton.setEnabled(false);
         }
+    }
+
+    private void DictionaryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
+        DictionaryController.getInstance().setVisible(true);
     }
 
 }

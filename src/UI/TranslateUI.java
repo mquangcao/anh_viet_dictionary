@@ -12,6 +12,7 @@ public class TranslateUI extends javax.swing.JFrame {
                 jPanel3 = new javax.swing.JPanel();
                 jPanel4 = new javax.swing.JPanel();
                 jPanel5 = new javax.swing.JPanel();
+                DictionaryMenuItem = new javax.swing.JMenuItem();
                 jScrollPane5 = new javax.swing.JScrollPane();
                 inputText = new javax.swing.JTextArea();
                 inputOption = new javax.swing.JComboBox<>();
@@ -31,12 +32,12 @@ public class TranslateUI extends javax.swing.JFrame {
                 jLabel2 = new javax.swing.JLabel();
                 jMenuBar1 = new javax.swing.JMenuBar();
                 jMenu1 = new javax.swing.JMenu();
-                jMenu4 = new javax.swing.JMenu();
                 jMenu2 = new javax.swing.JMenu();
                 jMenu5 = new javax.swing.JMenu();
                 jMenuItem2 = new javax.swing.JMenuItem();
                 jMenuItem3 = new javax.swing.JMenuItem();
                 jMenu3 = new javax.swing.JMenu();
+                FavoriteWordsMenuItem = new javax.swing.JMenuItem();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 setTitle("EngVieDirectory");
@@ -327,8 +328,11 @@ public class TranslateUI extends javax.swing.JFrame {
 
                 jMenu1.setText("Option");
 
-                jMenu4.setText("jMenu4");
-                jMenu1.add(jMenu4);
+                DictionaryMenuItem.setText("Dictionary");
+                jMenu1.add(DictionaryMenuItem);
+
+                FavoriteWordsMenuItem.setText("Favorite words");
+                jMenu1.add(FavoriteWordsMenuItem);
 
                 jMenuBar1.add(jMenu1);
 
@@ -397,7 +401,6 @@ public class TranslateUI extends javax.swing.JFrame {
         private javax.swing.JMenu jMenu1;
         private javax.swing.JMenu jMenu2;
         private javax.swing.JMenu jMenu3;
-        private javax.swing.JMenu jMenu4;
         private javax.swing.JMenu jMenu5;
         private javax.swing.JMenuBar jMenuBar1;
         private javax.swing.JMenuItem jMenuItem2;
@@ -417,4 +420,6 @@ public class TranslateUI extends javax.swing.JFrame {
         public javax.swing.JLabel outputOption;
         public javax.swing.JTextArea outputText;
         public javax.swing.JList<String> recommendList;
+        public javax.swing.JMenuItem DictionaryMenuItem;
+        public javax.swing.JMenuItem FavoriteWordsMenuItem;
 }
