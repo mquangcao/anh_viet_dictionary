@@ -1,36 +1,28 @@
 package test;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 public class JListExample {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("JList Example");
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addElement("Item 1");
-        listModel.addElement("Item 2");
-        listModel.addElement("Item 3");
-        JList<String> jList = new JList<>(listModel);
+        // Khởi tạo một HashMap
+        HashMap<String, Integer> hashMap = new HashMap<>();
 
-        jList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    // Lấy chỉ số của item đã được chọn
-                    int selectedIndex = jList.getSelectedIndex();
-                    // Lấy giá trị của item đã được chọn
-                    String selectedValue = jList.getSelectedValue();
-                    // Xử lý sự kiện ở đây
-                    System.out.println("Selected Index: " + selectedIndex);
-                    System.out.println("Selected Value: " + selectedValue);
-                }
-            }
-        });
+        // Thêm các phần tử vào HashMap
+        hashMap.put("b", 2);
+        hashMap.put("a", 1);
+        hashMap.put("c", 3);
+        hashMap.put("ac", 3);
 
-        frame.add(new JScrollPane(jList));
-        frame.setSize(200, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        // In ra HashMap trước khi sắp xếp
+        System.out.println("HashMap trước khi sắp xếp: " + hashMap);
+
+        // Tạo một TreeMap và đưa toàn bộ các entry của HashMap vào
+        TreeMap<String, Integer> sortedMap = new TreeMap<>(Comparator.reverseOrder());
+        sortedMap.putAll(hashMap);
+
+        // In ra TreeMap đã sắp xếp theo key
+        System.out.println("TreeMap sau khi sắp xếp: " + sortedMap);
     }
 }

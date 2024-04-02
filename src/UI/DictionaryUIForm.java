@@ -1,7 +1,5 @@
 package UI;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author mquangcao

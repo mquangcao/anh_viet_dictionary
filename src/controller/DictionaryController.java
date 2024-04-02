@@ -247,13 +247,19 @@ public class DictionaryController {
         }
         String word = dic.evworddic.getText();
         String meaning = dic.evmeaningdic.getText();
-        if (TranslateController.getInstance().eng_vie.containsKey(word)) {
+        if (TranslateController.getInstance().eng_vie.containsKey(word)
+                && TranslateController.getInstance().eng_vie.get(word).getMeaning().equals(meaning)) {
             JOptionPane.showMessageDialog(dic, "This word is already in the dictionary", "Warn",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
         int[] rows = dic.evtabledic.getSelectedRows();
         String currentWord = String.valueOf(dic.evtabledic.getValueAt(rows[0], 0));
+        if (!TranslateController.getInstance().eng_vie.containsKey(currentWord)) {
+            JOptionPane.showMessageDialog(dic, "This word is already in the dictionary", "Warn",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         TranslateController.getInstance().eng_vie.remove(currentWord);
         TranslateController.getInstance().eng_vie.put(word, new Word(word, meaning));
         JOptionPane.showMessageDialog(dic, "Modified word successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -270,13 +276,19 @@ public class DictionaryController {
         }
         String word = dic.veworddic.getText();
         String meaning = dic.vemeandic.getText();
-        if (TranslateController.getInstance().vie_eng.containsKey(word)) {
+        if (TranslateController.getInstance().vie_eng.containsKey(word)
+                && TranslateController.getInstance().vie_eng.get(word).getMeaning().equals(meaning)) {
             JOptionPane.showMessageDialog(dic, "This word is already in the dictionary", "Warn",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
         int[] rows = dic.vetabledic.getSelectedRows();
         String currentWord = String.valueOf(dic.vetabledic.getValueAt(rows[0], 0));
+        if (!TranslateController.getInstance().vie_eng.containsKey(currentWord)) {
+            JOptionPane.showMessageDialog(dic, "This word is already in the dictionary", "Warn",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         TranslateController.getInstance().vie_eng.remove(currentWord);
         TranslateController.getInstance().vie_eng.put(word, new Word(word, meaning));
         JOptionPane.showMessageDialog(dic, "Modified word successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

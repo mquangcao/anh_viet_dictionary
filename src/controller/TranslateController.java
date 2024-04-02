@@ -4,9 +4,13 @@ import utils.Debounce;
 
 import utils.Helper;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.event.DocumentListener;
@@ -41,6 +45,8 @@ public class TranslateController {
     public Map<String, Word> eng_vie = null;
     public Map<String, Word> vie_eng = null;
     public Map<String, Word> trans = null;
+    public Set<String> favoriteEv = null;
+    public Set<String> favoriteVe = null;
     public TranslateUI tlUI = null;
 
     private TranslateController() {
@@ -48,6 +54,119 @@ public class TranslateController {
         tlUI.setVisible(true);
         tlUI.setLocationRelativeTo(null);
         init();
+        loadFavoriteEv();
+        loadFavoriteVe();
+
+        tlUI.likeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                likeButtonActionPerformed(evt);
+            }
+        });
+
+        tlUI.dislikeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dislikeButtonActionPerformed(evt);
+            }
+        });
+
+        tlUI.FavoriteWordsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FavoriteWordsMenuItemActionPerformed(evt);
+            }
+        });
+    }
+
+    private void likeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tlUI.inputOption.getSelectedItem().equals("English")) {
+            favoriteEv.add(tlUI.inputText.getText());
+            tlUI.inputText.setText("");
+            tlUI.outputText.setText("");
+            clearRecommendList(tlUI.recommendList);
+            JOptionPane.showMessageDialog(tlUI, "Added word to favorites list successfully", "Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        favoriteVe.add(tlUI.inputText.getText());
+        tlUI.inputText.setText("");
+        tlUI.outputText.setText("");
+        clearRecommendList(tlUI.recommendList);
+        JOptionPane.showMessageDialog(tlUI, "Added word to favorites list successfully", "Successfully",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void dislikeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (tlUI.inputOption.getSelectedItem().equals("English")) {
+            favoriteEv.remove(tlUI.inputText.getText());
+            tlUI.inputText.setText("");
+            tlUI.outputText.setText("");
+            clearRecommendList(tlUI.recommendList);
+            JOptionPane.showMessageDialog(tlUI, "Successfully removed word from favorites list", "Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        favoriteVe.remove(tlUI.inputText.getText());
+        tlUI.inputText.setText("");
+        tlUI.outputText.setText("");
+        clearRecommendList(tlUI.recommendList);
+        JOptionPane.showMessageDialog(tlUI, "Successfully removed word from favorites list", "Successfully",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void setOnButtonLike() {
+        tlUI.likeButton.setEnabled(true);
+        tlUI.dislikeButton.setEnabled(false);
+    }
+
+    private void setOffButtonLike() {
+        tlUI.likeButton.setEnabled(false);
+        tlUI.dislikeButton.setEnabled(true);
+    }
+
+    private void setOffAllButton() {
+        tlUI.likeButton.setEnabled(false);
+        tlUI.dislikeButton.setEnabled(false);
+    }
+
+    private void loadFavoriteEv() {
+        favoriteEv = new HashSet<>();
+        favoriteEv.add("a");
+
+        String filePath = "./src/assets/favoriteEv.txt";
+        try {
+            FileReader fileReader = new FileReader(filePath);
+
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                favoriteEv.add(line);
+            }
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFavoriteVe() {
+        favoriteVe = new HashSet<>();
+        String filePath = "./src/assets/favoriteVe.txt";
+        try {
+            FileReader fileReader = new FileReader(filePath);
+
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                favoriteEv.add(line);
+            }
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void init() {
@@ -70,7 +189,7 @@ public class TranslateController {
         });
 
         final Debounce debounce = new Debounce();
-        handleTranslate(tlUI.inputText, tlUI.outputText, debounce, this, 500);
+        handleTranslate(tlUI.inputText, tlUI.outputText, debounce, this, 300);
 
         // recommend select
         selectionItemJList(tlUI.recommendList, tlUI.inputText, tlUI.outputText);
@@ -95,18 +214,23 @@ public class TranslateController {
                         if (input.isEmpty()) {
                             outputText.setText("");
                             clearRecommendList(tlUI.recommendList);
+                            setOffAllButton();
                         } else {
-
                             if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("English")) {
                                 tlHDUI.trans = tlHDUI.eng_vie;
                                 if (trans.containsKey(input)) {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
                                     setRecommendList(Helper.recommendWords(input, eng_vie), tlUI.recommendList);
+                                    if (favoriteEv.contains(word.getWord())) {
+                                        setOffButtonLike();
+                                    } else {
+                                        setOnButtonLike();
+                                    }
                                 } else {
                                     outputText.setText("");
+                                    setOffAllButton();
                                 }
-                                setActionLike();
 
                             } else if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("Vietnamese")) {
                                 tlHDUI.trans = tlHDUI.vie_eng;
@@ -114,14 +238,20 @@ public class TranslateController {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
                                     setRecommendList(Helper.recommendWords(input, vie_eng), tlUI.recommendList);
+                                    if (favoriteVe.contains(word.getWord())) {
+                                        setOffButtonLike();
+                                    } else {
+                                        setOnButtonLike();
+                                    }
                                 } else {
                                     outputText.setText("");
+                                    setOffAllButton();
                                 }
-                                setActionLike();
 
                             } else {
                                 JOptionPane.showMessageDialog(tlUI.jPanel3, "Please select language", "Error",
                                         JOptionPane.ERROR_MESSAGE);
+                                setOffAllButton();
                             }
 
                         }
@@ -169,13 +299,24 @@ public class TranslateController {
                     String selectedValue = jList.getSelectedValue();
                     if (selectedValue != null) {
                         inputText.setText(selectedValue);
+                        Word word = null;
                         if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("English")) {
-                            Word word = eng_vie.get(selectedValue);
+                            word = eng_vie.get(selectedValue);
                             outputText.setText(word.getMeaning());
+                            if (favoriteEv.contains(word.getWord())) {
+                                setOffButtonLike();
+                            } else
+                                setOnButtonLike();
+
                         } else {
-                            Word word = vie_eng.get(selectedValue);
+                            word = vie_eng.get(selectedValue);
                             outputText.setText(word.getMeaning());
+                            if (favoriteVe.contains(word.getWord())) {
+                                setOffButtonLike();
+                            } else
+                                setOnButtonLike();
                         }
+
                     }
 
                 }
@@ -183,16 +324,13 @@ public class TranslateController {
         });
     }
 
-    private void setActionLike() {
-        if (!tlUI.outputText.getText().equals("")) {
-            tlUI.likeButton.setEnabled(true);
-        } else {
-            tlUI.likeButton.setEnabled(false);
-        }
-    }
-
     private void DictionaryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
         DictionaryController.getInstance().setVisible(true);
+    }
+
+    private void FavoriteWordsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
+        WordLikeListController.getInstance().loadTableData(true);
+        WordLikeListController.getInstance().setVisible(true);
     }
 
 }
