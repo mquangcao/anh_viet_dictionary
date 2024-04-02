@@ -81,8 +81,7 @@ public class DictionaryUIForm extends javax.swing.JFrame {
                 engvieheader.setLayout(engvieheaderLayout);
                 engvieheaderLayout.setHorizontalGroup(
                                 engvieheaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(engvieheaderLayout.createSequentialGroup()
-                                                                .addContainerGap()
+                                                .addGroup(engvieheaderLayout.createSequentialGroup().addContainerGap()
                                                                 .addGroup(engvieheaderLayout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(evheadertitle,
