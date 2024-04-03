@@ -1,5 +1,6 @@
 package controller;
 
+import utils.DateHandle;
 import utils.Debounce;
 
 import utils.Helper;
@@ -21,6 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import UI.TranslateUI;
+import model.Date;
 import model.Word;
 import services.Data;
 
@@ -30,6 +32,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import java.util.HashMap;
 import javax.swing.event.DocumentEvent;
 
 public class TranslateController {
@@ -48,10 +51,16 @@ public class TranslateController {
     public Set<String> favoriteEv = null;
     public Set<String> favoriteVe = null;
     public TranslateUI tlUI = null;
+    public Map<Date, Map<String, Integer>> hisMap = null;
 
     private TranslateController() {
         tlUI = new TranslateUI("Translate");
         tlUI.setVisible(true);
+        hisMap = new HashMap<>();
+        Date a = new Date("20/3/2024");
+        Map<String, Integer> c = new HashMap<>();
+        c.put("quang cao", 10);
+        hisMap.put(a, c);
         tlUI.setLocationRelativeTo(null);
         init();
         loadFavoriteEv();
@@ -139,7 +148,6 @@ public class TranslateController {
 
     private void loadFavoriteEv() {
         favoriteEv = new HashSet<>();
-        favoriteEv.add("a");
 
         String filePath = "./src/assets/favoriteEv.txt";
         try {
@@ -231,6 +239,22 @@ public class TranslateController {
                                 if (trans.containsKey(input)) {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
+                                    Map<String, Integer> innerMap = null;
+
+                                    Date date = new Date(DateHandle.getCurrentDate());
+                                    if (hisMap.containsKey(date)) {
+                                        innerMap = hisMap.get(date);
+                                    } else {
+                                        innerMap = new HashMap<>();
+                                    }
+                                    if (innerMap.containsKey(word.getWord() + "(eng_vie)")) {
+                                        innerMap.put(word.getWord() + "(eng_vie)",
+                                                innerMap.get(word.getWord() + "(eng_vie)") + 1);
+                                    } else {
+                                        innerMap.put(word.getWord() + "(eng_vie)", 1);
+                                    }
+                                    hisMap.put(date, innerMap);
+
                                     setRecommendList(Helper.recommendWords(input, eng_vie), tlUI.recommendList);
                                     if (favoriteEv.contains(word.getWord())) {
                                         setOffButtonLike();
@@ -247,6 +271,23 @@ public class TranslateController {
                                 if (trans.containsKey(input)) {
                                     Word word = trans.get(input);
                                     outputText.setText(word.getMeaning());
+
+                                    Map<String, Integer> innerMap = null;
+                                    if (hisMap.containsKey(new Date(DateHandle.getCurrentDate()))) {
+                                        innerMap = hisMap
+                                                .get(new Date(DateHandle.getCurrentDate()));
+                                    } else {
+                                        innerMap = new HashMap<>();
+                                    }
+                                    if (innerMap.containsKey(word.getWord() + "(vie_eng)")) {
+                                        innerMap.put(word.getWord() + "(vie_eng)",
+                                                innerMap.get(word.getWord() + "(vie_eng)") + 1);
+                                    } else {
+
+                                        innerMap.put(word.getWord() + "(vie_eng)", 1);
+                                    }
+                                    hisMap.put(new Date(DateHandle.getCurrentDate()), innerMap);
+
                                     setRecommendList(Helper.recommendWords(input, vie_eng), tlUI.recommendList);
                                     if (favoriteVe.contains(word.getWord())) {
                                         setOffButtonLike();
@@ -313,6 +354,23 @@ public class TranslateController {
                         if (String.valueOf(tlUI.inputOption.getSelectedItem()).equals("English")) {
                             word = eng_vie.get(selectedValue);
                             outputText.setText(word.getMeaning());
+
+                            // Map<String, Integer> innerMap = null;
+                            // if (hisMap.containsKey(new Date(DateHandle.getCurrentDate()))) {
+                            // innerMap = hisMap
+                            // .get(new Date(DateHandle.getCurrentDate()));
+                            // } else {
+                            // innerMap = new HashMap<>();
+                            // }
+                            // if (innerMap.containsKey(word.getWord() + "(eng_vie)")) {
+                            // innerMap.put(word.getWord() + "(eng_vie)",
+                            // innerMap.get(word.getWord() + "(eng_vie)") + 1);
+                            // } else {
+
+                            // innerMap.put(word.getWord() + "(eng_vie)", 1);
+                            // }
+                            // hisMap.put(new Date(DateHandle.getCurrentDate()), innerMap);
+
                             if (favoriteEv.contains(word.getWord())) {
                                 setOffButtonLike();
                             } else
@@ -321,6 +379,23 @@ public class TranslateController {
                         } else {
                             word = vie_eng.get(selectedValue);
                             outputText.setText(word.getMeaning());
+
+                            // Map<String, Integer> innerMap = null;
+                            // if (hisMap.containsKey(new Date(DateHandle.getCurrentDate()))) {
+                            // innerMap = hisMap
+                            // .get(new Date(DateHandle.getCurrentDate()));
+                            // } else {
+                            // innerMap = new HashMap<>();
+                            // }
+                            // if (innerMap.containsKey(word.getWord() + "(vie_eng)")) {
+                            // innerMap.put(word.getWord() + "(vie_eng)",
+                            // innerMap.get(word.getWord() + "(vie_eng)") + 1);
+                            // } else {
+
+                            // innerMap.put(word.getWord() + "(vie_eng)", 1);
+                            // }
+                            // hisMap.put(new Date(DateHandle.getCurrentDate()), innerMap);
+
                             if (favoriteVe.contains(word.getWord())) {
                                 setOffButtonLike();
                             } else

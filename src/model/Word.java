@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Word {
     private String word;
     private String meaning;
@@ -31,7 +33,25 @@ public class Word {
         this.meaning = meaning;
     }
 
+    @Override
     public String toString() {
         return "Word [Word= " + word + ", Meaning= " + meaning + "]\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Word word1 = (Word) o;
+        return Objects.equals(word, word1.word) &&
+                Objects.equals(meaning, word1.meaning);
+    }
+
+    @Override
+    public int hashCode() {
+        System.out.println(Objects.hash(word, meaning));
+        return Objects.hash(word, meaning);
     }
 }

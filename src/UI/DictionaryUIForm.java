@@ -715,15 +715,15 @@ public class DictionaryUIForm extends javax.swing.JFrame {
         }// </editor-fold>
 
         private void evworddicActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
+
         }
 
         private void veworddicActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
+
         }
 
         private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {
-                // TODO add your handling code here:
+
         }
 
         // Variables declaration - do not modify

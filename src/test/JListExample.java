@@ -1,28 +1,32 @@
 package test;
 
-import java.util.Comparator;
+import model.*;
+import utils.XMLHandle;
+
 import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.Map;
 
 public class JListExample {
     public static void main(String[] args) {
-        // Khởi tạo một HashMap
-        HashMap<String, Integer> hashMap = new HashMap<>();
+        // Tạo và đăng ký một shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                // Đoạn mã được thực thi khi chương trình đóng
+                System.out.println("Chương trình đang được đóng...");
+                // Thực hiện các hoạt động cần thiết trước khi chương trình kết thúc
+                // Ví dụ: Đóng kết nối cơ sở dữ liệu, lưu trạng thái, ghi log, v.v.
+            }
+        });
 
-        // Thêm các phần tử vào HashMap
-        hashMap.put("b", 2);
-        hashMap.put("a", 1);
-        hashMap.put("c", 3);
-        hashMap.put("ac", 3);
-
-        // In ra HashMap trước khi sắp xếp
-        System.out.println("HashMap trước khi sắp xếp: " + hashMap);
-
-        // Tạo một TreeMap và đưa toàn bộ các entry của HashMap vào
-        TreeMap<String, Integer> sortedMap = new TreeMap<>(Comparator.reverseOrder());
-        sortedMap.putAll(hashMap);
-
-        // In ra TreeMap đã sắp xếp theo key
-        System.out.println("TreeMap sau khi sắp xếp: " + sortedMap);
+        // Mô phỏng hoạt động của chương trình
+        System.out.println("Chương trình đang chạy...");
+        try {
+            // Giả lập thời gian hoạt động của chương trình
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Giả lập việc kết thúc chương trình
+        System.exit(0);
     }
 }
