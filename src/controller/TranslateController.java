@@ -74,6 +74,16 @@ public class TranslateController {
                 FavoriteWordsMenuItemActionPerformed(evt);
             }
         });
+
+        tlUI.HistoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HistoryMenuItemActionPerformed(evt);
+            }
+        });
+    }
+
+    private void HistoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {
+        HistoryController.getInstance().setVisible(true);
     }
 
     private void likeButtonActionPerformed(java.awt.event.ActionEvent evt) {

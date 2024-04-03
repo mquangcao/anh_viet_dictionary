@@ -24,6 +24,7 @@ public class TranslateUI extends javax.swing.JFrame {
                 likeButton = new javax.swing.JButton();
                 dislikeButton = new javax.swing.JButton();
                 jPanel2 = new javax.swing.JPanel();
+                HistoryMenuItem = new javax.swing.JMenuItem();
                 jScrollPane4 = new javax.swing.JScrollPane();
                 outputText = new javax.swing.JTextArea();
                 outputOption = new javax.swing.JLabel();
@@ -328,6 +329,9 @@ public class TranslateUI extends javax.swing.JFrame {
 
                 jMenu1.setText("Option");
 
+                HistoryMenuItem.setText("History");
+                jMenu1.add(HistoryMenuItem);
+
                 DictionaryMenuItem.setText("Dictionary");
                 jMenu1.add(DictionaryMenuItem);
 
@@ -394,6 +398,7 @@ public class TranslateUI extends javax.swing.JFrame {
 
         // Variables declaration - do not modify
         public javax.swing.JButton dislikeButton;
+        public javax.swing.JMenuItem HistoryMenuItem;
         public javax.swing.JComboBox<String> inputOption;
         public javax.swing.JTextArea inputText;
         private javax.swing.JLabel jLabel1;
